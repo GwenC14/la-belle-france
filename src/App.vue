@@ -11,7 +11,8 @@
             :wine-list="displayRegion.wineList"
             :cheese-list="displayRegion.cheeseList"></region>
 
-    <create-region v-on:add-new-region="updateRegionList"></create-region>
+    <button @click="displayFormFct">Create new region</button>
+    <create-region v-if="displayForm" v-on:add-new-region="updateRegionList"></create-region>
   </div>
 </template>
 
@@ -47,6 +48,7 @@ export default {
         }
       ],
       displayRegion: false,
+      displayForm: false
     }
   },
 
@@ -54,8 +56,14 @@ export default {
     displayRegionFct(region) {
       this.displayRegion = region;
     },
+
     updateRegionList(updateRegion) {
       this.regionList.push(updateRegion);
+      this.displayForm = false;
+    },
+
+    displayFormFct() {
+      this.displayForm = true;
     }
   }
 }
