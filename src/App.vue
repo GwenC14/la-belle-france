@@ -1,28 +1,65 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ul>
+      <li v-for="region in regionList" :key="region.name">
+        <button @click="displayRegionFct(region)">{{region.name}}</button>
+      </li>
+    </ul>
+
+    <region v-show="displayRegion"
+            :name="displayRegion.name"
+            :wine-list="displayRegion.wineList"
+            :cheese-list="displayRegion.cheeseList"></region>
+
+    <create-region v-on:add-new-region="updateRegionList"></create-region>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Region from './components/Region.vue'
+import CreateRegion from './components/CreateRegion.vue'
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
+    Region,
+    CreateRegion,
+  },
+
+  data() {
+    return {
+      regionList: [
+        {
+          name: 'Région 11',
+          wineList: ['Vin 1', 'Vin 1.1', 'Vin 1.2'],
+          cheeseList: ['Fromage 1']
+        },
+        {
+          name: 'Région 2',
+          wineList: ['Vin 2'],
+          cheeseList: ['Fromage 2', 'Fromage 2.1', 'Fromage 2.2']
+        },
+        {
+          name: 'Région 3',
+          wineList: ['Vin 3'],
+          cheeseList: ['Fromage 3']
+        }
+      ],
+      displayRegion: false,
+    }
+  },
+
+  methods: {
+    displayRegionFct(region) {
+      this.displayRegion = region;
+    },
+    updateRegionList(updateRegion) {
+      this.regionList.push(updateRegion);
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
