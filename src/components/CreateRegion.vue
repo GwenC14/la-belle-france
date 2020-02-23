@@ -12,7 +12,7 @@
                 <span>Ajouter un fromage</span>
                 <input id="new-cheese" v-model="valueCheese" type="text" name="newCheese" />
             </label>
-            <button @click="moreCheese">+</button>
+            <button @click="moreCheese" :disabled="!isNotBlank(valueCheese)">+</button>
 
             <ul>
                 <li v-for="(cheese, index) in newCheese" :key="cheese">
@@ -26,7 +26,7 @@
                 <span>Ajouter un vin</span>
                 <input id="new-wine" v-model="valueWine" type="text" name="newWine" />
             </label>
-            <button @click="moreWine">+</button>
+            <button @click="moreWine" :disabled="!isNotBlank(valueWine)">+</button>
 
             <ul>
                 <li v-for="(wine, index) in newWine" :key="wine">
@@ -35,7 +35,7 @@
                 </li>
             </ul>
         </div>
-        <button @click="addRegion">Ajouter</button>
+        <button @click="addRegion" :disabled="!isRegionValid()">Ajouter</button>
     </form>
 </template>
 
@@ -87,6 +87,14 @@
                 e.preventDefault();
                 this.newWine.splice(index, 1);
             },
+
+            isRegionValid() {
+                return this.newRegion.trim().length > 0 && ( this.newCheese.length > 0 || this.newWine.length > 0 );
+            },
+
+            isNotBlank(inputValue) {
+                return inputValue.trim().length > 0;
+            }
         },
     }
 </script>
