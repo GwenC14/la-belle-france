@@ -1,41 +1,39 @@
 <template>
     <form id="app" class="CreateRegion">
         <h2>Ajouter un élément</h2>
-        <div>
-            <label for="new-region">
-                <span>Ajouter une région</span>
-                <input id="new-region" v-model="newRegion" type="text" name="newRegion" />
-            </label>
-        </div>
-        <div>
-            <label for="new-cheese">
-                <span>Ajouter un fromage</span>
-                <input id="new-cheese" v-model="valueCheese" type="text" name="newCheese" />
-            </label>
-            <button @click="moreCheese" :disabled="!isNotBlank(valueCheese)">+</button>
 
-            <ul>
-                <li v-for="(cheese, index) in newCheese" :key="cheese">
-                    <p>{{cheese}}</p>
-                    <button @click="deleteCheese($event, index)">Delete</button>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <label for="new-wine">
-                <span>Ajouter un vin</span>
-                <input id="new-wine" v-model="valueWine" type="text" name="newWine" />
-            </label>
-            <button @click="moreWine" :disabled="!isNotBlank(valueWine)">+</button>
+        <label for="new-region">
+            <span>Ajouter une région</span>
+            <input id="new-region" v-model="newRegion" type="text" name="newRegion" />
+        </label>
 
-            <ul>
-                <li v-for="(wine, index) in newWine" :key="wine">
-                    <p>{{wine}}</p>
-                    <button @click="deleteWine($event, index)">Delete</button>
-                </li>
-            </ul>
-        </div>
-        <button @click="addRegion" :disabled="!isRegionValid()">Ajouter</button>
+        <label for="new-cheese">
+            <span>Ajouter un fromage</span>
+            <input id="new-cheese" v-model="valueCheese" type="text" name="newCheese" />
+            <button class="button more" @click="moreCheese" :disabled="!isNotBlank(valueCheese)">+</button>
+        </label>
+
+        <ul class="added-item-content">
+            <li class="added-item" v-for="(cheese, index) in newCheese" :key="cheese">
+                <p>{{cheese}}</p>
+                <button class="button slim" @click="deleteCheese($event, index)">Delete</button>
+            </li>
+        </ul>
+
+        <label for="new-wine">
+            <span>Ajouter un vin</span>
+            <input id="new-wine" v-model="valueWine" type="text" name="newWine" />
+            <button class="button more" @click="moreWine" :disabled="!isNotBlank(valueWine)">+</button>
+        </label>
+
+        <ul class="added-item-content">
+            <li class="added-item" v-for="(wine, index) in newWine" :key="wine">
+                <p>{{wine}}</p>
+                <button class="button slim" @click="deleteWine($event, index)">Delete</button>
+            </li>
+        </ul>
+
+        <button class="button important" @click="addRegion" :disabled="!isRegionValid()">Ajouter</button>
     </form>
 </template>
 
@@ -100,5 +98,70 @@
 </script>
 
 <style scoped>
+
+    label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 50%;
+        height: 40px;
+        border: 1px solid darkslategray;
+        margin-bottom: 10px;
+        padding-left: 15px;
+        border-radius: 30px;
+    }
+
+    label span {
+        width: 25%;
+    }
+
+    input[type=text] {
+        border: none;
+        flex: 2;
+        height: 100%;
+        padding: 5px 0;
+        background:  none;
+    }
+
+    input[type=text]:focus {
+        outline: none;
+    }
+
+    h2 {
+        margin-bottom: 25px;
+    }
+
+    .button.more {
+        border: none;
+        color: darkslategray;
+        background-color: #ecf0f3;
+        height: 100%;
+        font-size: 21px;
+        padding: 0;
+        min-width: 60px;
+        border-radius: 0 30px 30px 0 ;
+    }
+
+    .CreateRegion {
+        margin-top: 50px !important;
+    }
+
+    .added-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
+
+    .added-item:last-child {
+        margin-bottom: 20px;
+    }
+
+    .added-item p {
+        margin-right: 10px;
+    }
+
+    .added-item-content {
+        padding-left: 20px;
+    }
 
 </style>
